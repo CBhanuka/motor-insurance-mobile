@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Insurance Quotation</title>
-    <!-- <link rel="stylesheet" href="static/style.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- PWA Meta Tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#007bff">
-    <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
-     <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e3c72">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="/static/manifest.json">
-
-    <!-- Add these BEFORE your app.js -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Your Styles -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Excel & PDF Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@latest"></script>
-    <!-- Apple Touch Icons -->
-    <!-- <link rel="apple-touch-icon" href="/static/icons/icon-152x152.png"> -->
-
+    
     <!-- Favicon -->
-    <!-- <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png"> -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png"> -->
-     <link rel="stylesheet" href="/static/style.css">
-  
+    <link rel="icon" type="image/png" href="icons/icon-144x144.png">
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png">
 </head>
 <body>
     <div class="app-container">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="step" data-step="3">
                     <div class="step-number">3</div>
-                    <div class="step-label">Review</div>
+                    <div class="step-label">Generate</div>
                 </div>
             </div>
         </header>
@@ -62,61 +62,44 @@
                 <div class="form-group">
                     <label for="salutation">Title</label>
                     <select id="salutation">
-                        <!-- <option value="">Select Title</option> -->
                         <option value="M/S">M/S</option>
+                        <option value="Mr.">Mr.</option>
                         <option value="Mrs.">Mrs.</option>
                         <option value="Ms.">Ms.</option>
                         <option value="Miss">Miss</option>
-                        <option value="Master">Master</option>
-                        <option value="Dr.">Ven.</option>
-                        <option value="Dr.">Dr.</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="insured_name">Name of Insured</label>
                     <input type="text" id="insured_name" placeholder="Enter full name">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="policy_type">Vehicle Type</label>
                     <select id="policy_type">
                         <option value="">Select Vehicle Type</option>
-
-                        <option value="Private Car">D/P Hiring</option>
-                        <option value="Private Car">D/P Private</option>
-                        <option value="Hiring Bus">Hiring Bus</option>
-                        <option value="Hiring Car">Hiring Car</option>
-                        <option value="Hiring Car">Hiring Car - Electric</option>
-                        <option value="Hiring Car">Hiring Car - Hybrid OPT II</option>
-                        <option value="Hiring Car">Hiring Car - Wagonr / Spacia / Hustler opt 2</option>
-                        <option value="Hiring Car">Hiring Lorry</option>
-                        <option value="Private Bus">Private Bus</option>
                         <option value="Private Car">Private Car</option>
-                        <option value="Private Car">Private Car - Electric</option>
-                        <option value="Private Car">Private Car - Hybrid OPT II</option>
-                        <option value="Private Car">Private Car - Wagonr / Spacia / Hustler opt 2</option>
-                        <option value="Private Car">Private Lorry</option>
+                        <option value="Hiring Car">Hiring Car</option>
+                        <option value="Private Bus">Private Bus</option>
+                        <option value="Hiring Bus">Hiring Bus</option>
                         <option value="Motor Cycle">Motor Cycle</option>
-                        <option value="Three Wheeler Private">Three Wheeler Private</option>
-                        <option value="Three Wheeler Hiring">Three Wheeler Hiring</option>
-                        <option value="Private Car">Tipper (Exclu. Usage as tool of trade)</option>
-                        <option value="Private Car">Tipper (Inclu. Usage as tool of trade)</option>
+                        <option value="Three Wheeler">Three Wheeler</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="vehicle_no">Vehicle Number</label>
                     <input type="text" id="vehicle_no" placeholder="e.g., ABC-1234">
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="seating_capacity">Seating Capacity</label>
                         <input type="number" id="seating_capacity" value="4" min="1" max="50">
                         <small>Excluding driver</small>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="vehicle_value">Vehicle Value (Rs.)</label>
                         <div class="currency-input">
@@ -125,31 +108,29 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- NET RATE INPUT (Percentage) -->
+
                 <div class="form-group highlight">
                     <label for="net_rate">Net Rate (%)</label>
                     <div class="percentage-input">
                         <input type="number" id="net_rate" step="0.01" value="0.65" placeholder="0.65">
                         <span class="percentage-symbol">%</span>
                     </div>
-                    <!-- <small>Enter percentage rate (e.g., 0.78 for 0.78%)</small> -->
                 </div>
             </section>
 
             <!-- Section 2: Additional Covers -->
             <section id="section2" class="form-section">
                 <h2><i class="fas fa-shield-alt"></i> Additional Covers</h2>
-                
+
                 <div class="toggle-grid">
                     <div class="toggle-item">
-                        <span>Flood & Natural Disaster</span>
+                        <span>Flood & Natural Disasters</span>
                         <label class="switch">
                             <input type="checkbox" id="flood_cover">
                             <span class="slider"></span>
                         </label>
                     </div>
-                    
+
                     <div class="toggle-item">
                         <span>SRCC (Strike, Riot)</span>
                         <label class="switch">
@@ -157,7 +138,7 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-                    
+
                     <div class="toggle-item">
                         <span>Terrorism Cover (TC)</span>
                         <label class="switch">
@@ -165,83 +146,10 @@
                             <span class="slider"></span>
                         </label>
                     </div>
-
-                    <div class="toggle-item">
-                        <div>
-                            <span>Exclusion Cover</span>
-                            <small class="status-text" style="display: block; font-size: 11px; color: #666; margin-top: 2px;">
-                                Hiring Only
-                            </small>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="exclusion_cover">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    
-                    <!-- <div class="toggle-item">
-                        <span>Exclusion Cover</span>
-                        <label class="switch">
-                            <input type="checkbox" id="exclusion_cover">
-                            <span class="slider"></span>
-                        </label>
-                    </div> -->
-                </div>
-                <!-- In Section 2, after the toggle-grid, add: -->
-                <div class="pab-section">
-                    <button class="btn btn-outline" id="openPabModal">
-                        <i class="fas fa-user-plus"></i> Add PAB Covers
-                    </button>
-                    <!-- <small style="display: block; margin-top: 5px; color: #666;">
-                        Personal Accident Benefit for additional persons
-                    </small> -->
-                </div>
-                <!-- PAB Modal -->
-                <div class="modal-overlay" id="pabModal">
-                    <div class="modal-container">
-                        <div class="modal-header">
-                            <h2><i class="fas fa-user-shield"></i> PAB (Personal Accident Benefit) Covers</h2>
-                            <button class="modal-close" id="closePabModal">&times;</button>
-                        </div>
-                        
-                        <div class="modal-content">
-                            <div class="pab-instructions">
-                                <p><i class="fas fa-info-circle"></i> Set units for each PAB cover. Units = number of people covered.</p>
-                            </div>
-                            
-                            <div class="pab-table-container">
-                                <table class="pab-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Cover Type</th>
-                                            <th>Units</th>
-                                            <th>Limit (Rs.)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="pabTableBody">
-                                        <!-- PAB rows will be inserted here by JavaScript -->
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="pab-total">
-                                <div class="total-row">
-                                    <span>Total PAB Premium:</span>
-                                    <strong id="pabTotalPremium">Rs. 0.00</strong>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" id="cancelPab">Cancel</button>
-                            <button class="btn btn-primary" id="savePab">Save PAB Covers</button>
-                        </div>
-                    </div>
                 </div>
 
-                
                 <h3 style="margin-top: 30px; margin-bottom: 15px;">Cover Amounts (Rs.)</h3>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="airbag_cover">Air Bag Cover</label>
@@ -250,7 +158,7 @@
                             <input type="number" id="airbag_cover" value="0">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="windscreen_cover">Windscreen Cover</label>
                         <div class="currency-input">
@@ -259,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="towing_charges">Towing Charges</label>
@@ -268,35 +176,29 @@
                             <input type="number" id="towing_charges" value="0">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="third_party_damage">3rd Party Damage</label>
                         <select id="third_party_damage">
-                            <option value="1000000">Rs. - </option>
                             <option value="1000000">Rs. 1,000,000</option>
                             <option value="3000000">Rs. 3,000,000</option>
                             <option value="5000000">Rs. 5,000,000</option>
-                            <option value="10000000">Rs. 10,000,000</option>
-                            <option value="20000000">Rs. 20,000,000</option>
                         </select>
-                            <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">
-                                <span id="thirdPartyStatus">Available for all vehicles</span>
-                            </small>
                     </div>
                 </div>
             </section>
 
-            <!-- Section 3: Review & Save -->
+            <!-- Section 3: Review & Generate -->
             <section id="section3" class="form-section">
                 <h2><i class="fas fa-file-invoice"></i> Review & Generate</h2>
-                
+
                 <!-- Preview Card -->
                 <div class="preview-card">
                     <div class="preview-header">
                         <h3>Quotation Preview</h3>
-                        <span id="quoteIdDisplay">Q20231215120000</span>
+                        <span id="quoteIdDisplay">MOB-001</span>
                     </div>
-                    
+
                     <div class="preview-content">
                         <div class="preview-row">
                             <span>Insured Name:</span>
@@ -314,10 +216,9 @@
                             <span>Sum Insured:</span>
                             <strong id="preview_sum_insured">-</strong>
                         </div>
-                        
+
                         <div class="preview-divider"></div>
-                        
-                        <!-- Premium Breakdown -->
+
                         <h4>Premium Breakdown</h4>
                         <div class="preview-row">
                             <span>Net Premium:</span>
@@ -331,33 +232,33 @@
                             <span>Terrorism Cover:</span>
                             <strong id="preview_tc">-</strong>
                         </div>
-                        <div class="preview-row">
-                            <span>Road Safety Fund:</span>
-                            <strong id="preview_road_safety">-</strong>
-                        </div>
-                        
+
                         <div class="preview-divider"></div>
-                        
+
                         <div class="preview-row total-row">
                             <span>TOTAL PREMIUM:</span>
                             <strong class="total-amount" id="preview_total">-</strong>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button class="btn btn-primary" id="saveToExcelBtn">
-                        <i class="fas fa-save"></i> Save to Excel
+                        <i class="fas fa-file-excel"></i> Generate Excel
                     </button>
-                    
-                    <button class="btn btn-secondary" id="downloadExcelBtn">
-                        <i class="fas fa-download"></i> Download Excel
-                    </button>
-                    
+
                     <button class="btn btn-success" id="generatePdfBtn">
                         <i class="fas fa-file-pdf"></i> Generate PDF
                     </button>
+                </div>
+
+                <!-- Mobile Instructions -->
+                <div id="mobileInstructions" style="margin-top: 20px; padding: 15px; background: #f0f8ff; border-radius: 10px; display: none;">
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile Tips</h4>
+                    <p><strong>To install as app:</strong></p>
+                    <p><i class="fas fa-apple"></i> iPhone: Tap Share → "Add to Home Screen"</p>
+                    <p><i class="fab fa-android"></i> Android: Tap Menu → "Add to Home Screen"</p>
                 </div>
             </section>
         </main>
@@ -368,22 +269,31 @@
                 <button class="btn btn-secondary" id="prevBtn">
                     <i class="fas fa-arrow-left"></i> Previous
                 </button>
-                
                 <button class="btn btn-primary" id="nextBtn">
                     Next <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </footer>
 
-        <!-- Loading Overlay -->
-        <div class="loading-overlay" id="loadingOverlay">
-            <div class="loading-content">
-                <i class="fas fa-spinner fa-spin"></i>
-                <p>Saving to Excel...</p>
-            </div>
-        </div>
+        <!-- Notification Toast -->
+        <div id="toast" class="toast"></div>
     </div>
-<script src="/static/app.js"></script>
 
+    <!-- Your App JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'))
+                .catch(err => console.log('SW Error:', err));
+        }
+        
+        // Show mobile instructions on mobile
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            document.getElementById('mobileInstructions').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
