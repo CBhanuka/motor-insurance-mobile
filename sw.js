@@ -1,50 +1,51 @@
-const CACHE_NAME = 'insurance-quote-v1';
+// Service Worker for Offline Capability
+const CACHE_NAME = 'motor-insurance-v4';
 const urlsToCache = [
-  '/',
-  '/static/css/styles.css',
-  '/static/js/app.js',
-  '/static/icons/icon-192x192.png',
-  '/static/icons/icon-512x512.png'
+    './',
+    './index.html',
+    './style.css',
+    './app.js',
+    './manifest.json',
+    './icons/icon-144x144.png'
 ];
 
-// Install service worker
+// Install event
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
+    console.log('[SW] Installing...');
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => {
+                console.log('[SW] Caching app shell');
+                return cache.addAll(urlsToCache);
+            })
+    );
 });
 
-// Fetch from cache or network
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Cache hit - return response
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
-  );
-});
-
-// Update service worker
+// Activate event
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
+    console.log('[SW] Activating...');
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheName !== CACHE_NAME) {
+                        console.log('[SW] Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
         })
-      );
-    })
-  );
+    );
+    return self.clients.claim();
+});
+
+// Fetch event
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => {
+                // Return cached version or fetch from network
+                return response || fetch(event.request);
+            })
+    );
 });
